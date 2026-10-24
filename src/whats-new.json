@@ -1,0 +1,20 @@
+{
+	"id": "block-drag-links",
+	"name": "Block Drag Links",
+	"version": "1.0.0",
+	"changes": [],
+	"tip": "Hold Ctrl or Cmd when you drop a block to insert an embed instead of a link.",
+	"thanks": "Hi, I am Michael, a solo developer in Poland. Block Drag Links is one of over 100 small plugins that I make. Thank you for trusting it with your notes.",
+	"related": [
+		{
+			"id": "inline-block-embeds",
+			"name": "Inline Block Embeds",
+			"blurb": "Show a block embed inside a sentence as inline text."
+		},
+		{
+			"id": "heading-link-sync",
+			"name": "Heading Link Sync",
+			"blurb": "Keep links to a heading working when you edit the heading."
+		}
+	]
+}

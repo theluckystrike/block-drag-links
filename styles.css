@@ -1,0 +1,70 @@
+/* Styles for Block Drag Links. Obsidian loads this file while the plugin is enabled. */
+
+/* The drag handle at the first line of the block under the mouse. */
+.bdl-handle {
+	position: absolute;
+	top: var(--bdl-top, 0);
+	left: var(--bdl-left, 0);
+	z-index: var(--layer-cover);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	border-radius: var(--radius-s);
+	color: var(--text-faint);
+	cursor: grab;
+}
+
+.bdl-handle:hover {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-hover);
+}
+
+.bdl-handle svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* The drag image: one line of the block text, drawn out of view. */
+.bdl-ghost {
+	position: fixed;
+	top: -1000px;
+	left: 0;
+	max-width: 320px;
+	padding: 2px 8px;
+	overflow: hidden;
+	border-radius: var(--radius-s);
+	font-size: var(--font-ui-small);
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: var(--text-normal);
+	background-color: var(--background-secondary);
+}
+
+/* NoteMods What's new tab and settings card */
+.notemods-hello {
+	overflow-y: auto;
+}
+
+.notemods-hello-page {
+	max-width: var(--file-line-width);
+	margin: 0 auto;
+	padding: var(--size-4-6) var(--size-4-4);
+}
+
+.notemods-hello-sub,
+.notemods-hello-blurb {
+	color: var(--text-muted);
+}
+
+.notemods-hello-buttons .setting-item-control {
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+/* Screenshots only: the handle as it looks under the pointer. */
+.bdl-handle.bdl-shot-hover {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-hover);
+}
