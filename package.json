@@ -1,5 +1,6 @@
 {
 	"name": "block-drag-links",
+	"repository": {"type": "git", "url": "theluckystrike/block-drag-links.git"},
 	"version": "1.0.0",
 	"private": true,
 	"description": "Drag a heading or a block to another note to insert a link or an embed to it, and add a block ID to the source when it has none.",
