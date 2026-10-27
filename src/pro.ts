@@ -1,6 +1,7 @@
 // Pro through GitHub Sponsors (packages/license, github.ts). product.yaml pro: holds the same values; fx check compares them.
 // Every Pro check in the plugin calls isPro(); views redraw through onProChange(). main.ts binds the manager in onload.
 import type { SponsorsConfig, SponsorsManager } from './license/index';
+import { showProNotice } from './license/github-obsidian';
 
 export const SPONSORS: SponsorsConfig = {
 	// Public client id of the seller's OAuth App (device flow on, no client secret anywhere).
@@ -13,6 +14,10 @@ export const SPONSORS: SponsorsConfig = {
 	// Read-only profile access: the sponsorship tier fields need it. No repository or write access.
 	scope: 'read:user',
 };
+
+/** Leads of the Pro gates. showProNotice adds the next step for this user. */
+export const PRO_MULTI = 'Drag all blocks of a selection is a Pro feature.';
+export const PRO_READABLE = 'Readable block IDs are a Pro feature.';
 
 export const PRO_UI = {
 	proSummary: 'Pro drags every block of a selection at one time, one link for each block, and makes readable block ids from the first words of the block.',
@@ -53,4 +58,9 @@ export function resetPro(): void {
 	unbind = null;
 	manager = null;
 	listeners.clear();
+}
+
+/** Shows the shared Pro notice: the lead, then the next step for this user. A free user gets a Sponsor on GitHub button. */
+export function proNotice(lead: string): void {
+	showProNotice(manager, lead);
 }

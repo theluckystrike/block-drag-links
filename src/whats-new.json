@@ -1,8 +1,10 @@
 {
 	"id": "block-drag-links",
 	"name": "Block Drag Links",
-	"version": "1.0.0",
-	"changes": [],
+	"version": "1.0.1",
+	"changes": [
+		"Drag all blocks of a selection and Readable block IDs now show how to get Pro, with a Sponsor on GitHub button, when you select them. The toggle goes back to off and nothing is saved."
+	],
 	"tip": "Hold Ctrl or Cmd when you drop a block to insert an embed instead of a link.",
 	"thanks": "Hi, I am Michael, a solo developer in Poland. Block Drag Links is one of over 100 small plugins that I make. Thank you for trusting it with your notes.",
 	"related": [

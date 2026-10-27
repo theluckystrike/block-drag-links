@@ -1,6 +1,6 @@
 import { PluginSettingTab, type SettingDefinitionItem } from 'obsidian';
 import { sponsorsSettingItems } from './license/github-obsidian';
-import { PRO_UI, isPro } from './pro';
+import { PRO_MULTI, PRO_READABLE, PRO_UI, isPro, proNotice } from './pro';
 import type { DragOptions } from './drag';
 import type BlockDragLinksPlugin from './main';
 import { helloSettingItems } from './hello/settings';
@@ -49,12 +49,12 @@ export class BlockDragLinksSettingTab extends PluginSettingTab {
 			{
 				name: 'Drag all blocks of a selection',
 				desc: 'Pro. Select lines across several blocks, then drag the handle of one of them. The drop inserts one link for each block, one for each line.',
-				control: { type: 'toggle', key: 'multiBlock', defaultValue: DEFAULT_SETTINGS.multiBlock, disabled: () => !isPro() },
+				control: { type: 'toggle', key: 'multiBlock', defaultValue: DEFAULT_SETTINGS.multiBlock },
 			},
 			{
 				name: 'Readable block IDs',
 				desc: 'Pro. Make a new block ID from the first three words of the block, for example ^call-bob. When this is off, a new ID has 6 random letters and digits, as Obsidian makes.',
-				control: { type: 'toggle', key: 'readableIds', defaultValue: DEFAULT_SETTINGS.readableIds, disabled: () => !isPro() },
+				control: { type: 'toggle', key: 'readableIds', defaultValue: DEFAULT_SETTINGS.readableIds },
 			},
 			{
 				name: 'Pro features',
@@ -67,7 +67,24 @@ export class BlockDragLinksSettingTab extends PluginSettingTab {
 		];
 	}
 
+	getControlValue(key: string): unknown {
+		// A free user sees the values in effect: both Pro toggles off. The stored choice stays for the time that Pro comes back.
+		if ((key === 'multiBlock' || key === 'readableIds') && !isPro()) return false;
+		return super.getControlValue(key);
+	}
+
 	async setControlValue(key: string, value: unknown): Promise<void> {
+		// Free users can select the Pro toggles: the notice shows what Pro adds and how to get it. Nothing is saved.
+		const lead = key === 'multiBlock' ? PRO_MULTI : key === 'readableIds' ? PRO_READABLE : null;
+		if (lead && !isPro()) {
+			proNotice(lead);
+			// Obsidian does not draw a control again while it has the focus. Move the focus out, then draw the tab
+			// again, so the toggle shows the value in effect (off).
+			const active = this.containerEl.ownerDocument.activeElement as HTMLElement | null;
+			if (active && this.containerEl.contains(active)) active.blur();
+			this.update();
+			return;
+		}
 		await super.setControlValue(key, value);
 		this.plugin.settings = normalizeSettings(this.plugin.settings);
 	}
