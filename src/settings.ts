@@ -1,5 +1,5 @@
-import { PluginSettingTab, type SettingDefinitionItem } from 'obsidian';
-import { sponsorsSettingItems } from './license/github-obsidian';
+import { PluginSettingTab, type Notice, type SettingDefinitionItem } from 'obsidian';
+import { sponsorsSettingItems, redrawKeepFocus } from './license/github-obsidian';
 import { PRO_MULTI, PRO_READABLE, PRO_UI, isPro, proNotice } from './pro';
 import type { DragOptions } from './drag';
 import type BlockDragLinksPlugin from './main';
@@ -32,6 +32,9 @@ export function effectiveOptions(settings: BlockDragLinksSettings, pro: boolean)
 }
 
 export class BlockDragLinksSettingTab extends PluginSettingTab {
+	/** The last Pro notice of this tab and its lead. The same notice does not show again while it is open. */
+	private notice: Notice | null = null;
+	private noticeLead = '';
 	plugin: BlockDragLinksPlugin;
 
 	constructor(app: ConstructorParameters<typeof PluginSettingTab>[0], plugin: BlockDragLinksPlugin) {
@@ -77,12 +80,15 @@ export class BlockDragLinksSettingTab extends PluginSettingTab {
 		// Free users can select the Pro toggles: the notice shows what Pro adds and how to get it. Nothing is saved.
 		const lead = key === 'multiBlock' ? PRO_MULTI : key === 'readableIds' ? PRO_READABLE : null;
 		if (lead && !isPro()) {
-			proNotice(lead);
+			// One notice at a time for the same Pro setting: a repeated key on the focused control adds no new notice.
+			const noticeLead = lead;
+			if (!this.notice?.messageEl.isConnected || this.noticeLead !== noticeLead) {
+				this.notice = proNotice(noticeLead);
+				this.noticeLead = noticeLead;
+			}
 			// Obsidian does not draw a control again while it has the focus. Move the focus out, then draw the tab
 			// again, so the toggle shows the value in effect (off).
-			const active = this.containerEl.ownerDocument.activeElement as HTMLElement | null;
-			if (active && this.containerEl.contains(active)) active.blur();
-			this.update();
+			redrawKeepFocus(this);
 			return;
 		}
 		await super.setControlValue(key, value);

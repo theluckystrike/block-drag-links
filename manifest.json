@@ -1,7 +1,7 @@
 {
 	"id": "block-drag-links",
 	"name": "Block Drag Links",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minAppVersion": "1.13.4",
 	"description": "Drag a heading or a block to another note to insert a link or an embed to it, and add a block ID to the source when it has none.",
 	"author": "Michael Lip",
