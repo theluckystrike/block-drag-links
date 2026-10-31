@@ -16,7 +16,7 @@ Drag the handle of a block into another note. The drop inserts a block link ther
 
 A block is a paragraph, a list item, a task, a blockquote, a callout or a table. A paragraph, a list item and a task get ` ^id` at the end of their last line. A blockquote, a callout and a table get the ID on its own line after the block, with a blank line before it and after it, as Obsidian needs. A block that has an ID keeps it, and the link uses it. A new ID has 6 letters and digits, as Obsidian makes them, and it is not used in the note yet.
 
-Free: one heading or one block for each drag, links and embeds, new block IDs. Pro: all blocks of a selection in one drag, and readable block IDs. $15 one time or $5 a month: [Sponsor](https://github.com/sponsors/theluckystrike?metadata_source=block-drag-links).
+Free: one heading or one block for each drag, links and embeds, new block IDs. Pro: all blocks of a selection in one drag, and readable block IDs. $15 one time or $5 a month: [Sponsor](https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=block-drag-links).
 
 ### The drag handle
 
@@ -74,7 +74,7 @@ After a minor or major update, this plugin opens one What's new tab in the backg
 
 To sign in and enable Pro:
 
-1. Sponsor via [GitHub Sponsors](https://github.com/sponsors/theluckystrike?metadata_source=block-drag-links). A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply.
+1. Sponsor via [GitHub Sponsors](https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=block-drag-links). A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply.
 2. In Obsidian, open the settings of Block Drag Links and select "Sign in with GitHub".
 3. The plugin copies a code and opens github.com/login/device. Paste the code there and approve.
 
@@ -102,7 +102,7 @@ The plugin uses the ID that is there: at the end of the block, on the line after
 
 The core features are free. Pro features need a GitHub Sponsors sponsorship of theluckystrike: $5 a month or more, or $15 once. A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply. Your notes stay readable and editable with or without Pro.
 
-GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike. You need no account for the free features. Pro needs the GitHub account that sponsors.
+GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=block-drag-links. You need no account for the free features. Pro needs the GitHub account that sponsors.
 
 Until you select "Sign in with GitHub" in the settings, Block Drag Links makes no network requests. Sign in uses the GitHub device flow. Block Drag Links sends its public client ID and the scope `read:user` to `https://github.com/login/device/code` and shows you a code. While you enter the code at https://github.com/login/device, it asks `https://github.com/login/oauth/access_token` every few seconds to check the sign-in status. The scope permits profile reads only. GitHub needs this access to show the sponsorship tier. It grants no repository scope and no write access.
 
