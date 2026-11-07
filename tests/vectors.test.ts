@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { timeOf } from './growth';
 import vectors from './vectors/block-drag-links.json';
 import { applyInsertion, blocksInRange, buildLink, classifyLines, collectIds, findBlock, headingSubpath, idInsertion, newBlockId, readableBlockId, reuseId } from '../src/blocks';
 
@@ -36,14 +37,16 @@ describe('golden vectors (packages/spec/vectors/block-drag-links.json)', () => {
 });
 
 describe('cost on a large note (R3 P16)', () => {
-	it('finds all blocks of a 50,000 line selection in less than 3 s', () => {
+	it('finds all blocks of a 50,000 line selection in less than 250 times the time of one line scan', () => {
 		const big = Array.from({ length: 50_000 }, (_, i) => (i % 2 ? '' : `Paragraph ${i} with words.`));
-		const t0 = performance.now();
-		const all = blocksInRange(big, 0, big.length - 1, classifyLines(big));
-		const ms = performance.now() - t0;
-		expect(all.length).toBe(25_000);
-		// ESTIMATE: about 0.4 s on the agent Mac. Before the fix it took 23 s.
-		expect(ms).toBeLessThan(3000);
+		const classes = classifyLines(big);
+		expect(blocksInRange(big, 0, big.length - 1, classes).length).toBe(25_000);
+		// The baseline is one linear scan of the same lines, timed in this test, so a slow CI runner slows both times.
+		// Measured on the agent Mac 2026-11-01: 360 to 460 ms for the blocks, 5 to 10 ms for the scan, ratio 44 to 76.
+		// The limit is 3 times the highest ratio. Before the R3 P16 fix the blocks took 23 s (ratio above 2000).
+		const scan = timeOf(() => classifyLines(big), 3);
+		const blocks = timeOf(() => blocksInRange(big, 0, big.length - 1, classes), 1);
+		expect(blocks / scan, `${blocks.toFixed(0)} ms for the blocks, ${scan.toFixed(1)} ms for the scan`).toBeLessThan(250);
 	});
 });
 

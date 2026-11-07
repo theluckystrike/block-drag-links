@@ -54,8 +54,8 @@ describe('Pro toggles in the settings tab', () => {
 		expect(base).not.toHaveBeenCalled();
 		expect(tab.update).toHaveBeenCalledTimes(2);
 		expect(shown).toEqual([
-			{ text: 'Readable block IDs are a Pro feature. Sponsor on GitHub, then sign in from the plugin settings.Sponsor on GitHub', buttons: 1 },
-			{ text: 'Drag all blocks of a selection is a Pro feature. Sponsor on GitHub, then sign in from the plugin settings.Sponsor on GitHub', buttons: 1 },
+			{ text: 'Readable block IDs are a Pro feature. One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.Sponsor on GitHub', buttons: 1 },
+			{ text: 'Drag all blocks of a selection is a Pro feature. One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.Sponsor on GitHub', buttons: 1 },
 		]);
 	});
 

@@ -4,7 +4,7 @@ import type Plugin from '../../src/main';
 
 type Notices = { text: string; buttons: number }[];
 
-const NEXT = 'Sponsor on GitHub, then sign in from the plugin settings.';
+const NEXT = 'One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.';
 const MULTI = 'Drag all blocks of a selection is a Pro feature.';
 const READABLE = 'Readable block IDs are a Pro feature.';
 
