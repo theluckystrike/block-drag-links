@@ -1,7 +1,7 @@
 {
 	"id": "block-drag-links",
 	"name": "Block Drag Links",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"changes": [
 		"The Pro notice of Block Drag Links now says that one payment turns on Pro in every NoteMods plugin."
 	],

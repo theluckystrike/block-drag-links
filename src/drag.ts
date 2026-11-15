@@ -89,7 +89,9 @@ class HandleView {
 	private y = 0;
 	private readonly onMove = (e: MouseEvent) => this.move(e);
 	private readonly onLeave = (e: MouseEvent) => {
-		if (e.relatedTarget instanceof Node && this.handle.contains(e.relatedTarget)) return;
+		const rel = e.relatedTarget;
+		// relatedTarget is any EventTarget. A Node check that works for nodes of popout windows too.
+		if (rel !== null && 'nodeType' in rel && this.handle.contains(rel as Node)) return;
 		this.hide();
 	};
 	private readonly onScroll = () => this.hide();
@@ -140,7 +142,7 @@ class HandleView {
 	}
 
 	private move(e: MouseEvent): void {
-		if (e.target instanceof Node && this.handle.contains(e.target)) return;
+		if (e.targetNode && this.handle.contains(e.targetNode)) return;
 		if (e.buttons !== 0) {
 			this.hide();
 			return;
@@ -209,7 +211,7 @@ class HandleView {
 		e.dataTransfer.setData(DRAG_MIME, token);
 		e.dataTransfer.setData('text/plain', plain);
 		e.dataTransfer.effectAllowed = 'copyLink';
-		const ghost = document.body.createDiv({ cls: 'bdl-ghost', text: items.length > 1 ? `${items.length} blocks` : (lines[b.start] ?? '').trim().slice(0, 60) });
+		const ghost = activeDocument.body.createDiv({ cls: 'bdl-ghost', text: items.length > 1 ? `${items.length} blocks` : (lines[b.start] ?? '').trim().slice(0, 60) });
 		e.dataTransfer.setDragImage(ghost, 0, 0);
 		window.setTimeout(() => ghost.remove(), 0);
 		view.dom.addClass('bdl-dragging');
